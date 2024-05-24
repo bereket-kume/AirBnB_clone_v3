@@ -83,6 +83,4 @@ class DBStorage:
     
     def count(self, cls=None):
         """class for count"""
-        if cls:
-            return self.__session.query(cls).count()
-        return sum(self.__session.query(model).count() for model in BaseModel.__subclasses__())
+        return (len(self.all(cls)))
