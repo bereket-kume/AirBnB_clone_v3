@@ -78,14 +78,11 @@ class DBStorage:
     def get(self, cls, id):
         """method that retrieve object"""
         if cls and id:
-            tempo = cls, __name__ + "." + id
-            count = self.all(cls)
-            for key in count:
-                if key == tempo:
-                    return count[key]
-        else:
-            return None
+            return self.__session.query(cls).filter_by(id=id).first()
+        return None
     
     def count(self, cls=None):
         """class for count"""
-        return (len(self.all(cls)))
+        if cls:
+            return self.__session.query(cls).count()
+        return sum(self.__session.query(model).count() for model in BaseModel.__subclasses__())

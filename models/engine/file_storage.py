@@ -72,12 +72,11 @@ class FileStorage:
     def get(self, cls, id):
         """onject to get"""
         if cls and id:
-            getobj = '{}.{}'.format(cls, id)
-            allobj = self.all(cls)
-            return allobj.get(getobj)
-        else:
-            return None
-        
+           key = "{}.{}".format(cls.__name__, id)
+           return self.__objects.get(key)
+        return None
     def count(self, cls=None):
         """count class"""
-        return (len(self.all(cls)))
+        if cls:
+            return len([obj for obj in self.__objects.values() if isinstance(obj, cls)])
+        return len(self.__objects)
