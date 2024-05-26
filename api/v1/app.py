@@ -11,10 +11,12 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 app.url_map.strict_slashes = False
 
+
 @app.teardown_appcontext
 def teardown(self):
     """ close the connecton """
     storage.close()
+
 
 @app.errorhandler(404)
 def page_not_found(error):
