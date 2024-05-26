@@ -34,3 +34,26 @@ def add_state():
     storage.new(stateObj)
     storage.save()
     return jsonify(stateObj.to_dict()), '201'
+
+@app_views.route('/states/<state_id>', methods=['PUT'])
+def update_state():
+    response = request.get_json()
+    if response is None:
+        abort(400, {'Not a JSON'})
+    stateObj = storage.get('State', 'state_id')
+    if stateObj is None:
+        abort(404)
+    removeKeys = ['id', 'created_at', 'updated_at']
+    for key in response.items():
+        if key not in removeKeys:
+            setattr(stateObj, key)
+        storage.save()
+
+@app_views.route('/states/<state_id>', methods=['DELETE'])
+def delete_state():
+    stateObj = storage.get('State', 'state_id')
+    if stateObj is None:
+        abort(404)
+    storage.delete(stateObj)
+    storage.save()
+    return jsonify({}), '200'
