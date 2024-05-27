@@ -24,7 +24,7 @@ def data():
     """ return number of data in the form dict"""
     data_num = {
         'state': State,
-        'user': User,
+        'users': User,
         'amenities': Amenity,
         'cities': City,
         'places': Place,
