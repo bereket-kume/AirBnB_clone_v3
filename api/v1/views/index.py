@@ -23,7 +23,7 @@ def status():
 def data():
     """ return number of data in the form dict"""
     data_num = {
-        'state': State,
+        'states': State,
         'users': User,
         'amenities': Amenity,
         'cities': City,
