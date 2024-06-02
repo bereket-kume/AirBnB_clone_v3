@@ -3,6 +3,9 @@
 from flask import Flask, render_template
 from models import  storage
 import  uuid
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 app = Flask('web_dynamic')
 app.url_map.strict_slashes = False
 
